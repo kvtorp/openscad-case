@@ -1,27 +1,28 @@
 
 include <../dimensions.scad>
 
-Box(length, width, height, 10, thickness, withInset);
-%AnslagSupport(length, height, 10);
+Box(length, width, height, cornerRadius, thickness, withInset);
+%AnslagSupport(length, height, cornerRadius);
 
-#BoxInsert(length, width, height, 10, thickness);
-InsertPatches(length, width, 10, thickness);
+translate([0, width + 45, 0]) {
+    Lid(length, width, 10, thickness, textOnLid, textSize, withInset);
+    color("blue")
+    Buckles(length, cornerRadius);
+    if (len(textOnLid) > 0)
+    color("blue")
+    LidText(length, width, textOnLid, textSize);
+}
 
-translate([0, width + 45, 0])
-Lid(length, width, 10, thickness, textOnLid, 20, withInset);
-translate([0, width + 45, 0])
-color("blue")
-LidText(length, width, textOnLid, 20);
+#if (withInset) {
+    BoxInsert(length, width, height, cornerRadius, thickness);
+    InsertPatches(length, width, cornerRadius, thickness);
 
-#translate([0, width + 45, 0])
-LidInsert(length, width, 10, thickness);
+    translate([0, width + 45, 0])
+    LidInsert(length, width, cornerRadius, thickness);
+    translate([0, width + 45, 0])
+    InsertPatches(length, width, cornerRadius, thickness);
+}
 
-translate([0, width + 45, 0])
-InsertPatches(length, width, 10, thickness);
-
-
-translate([0, width + 45, 0])
-Buckles(length, 10);
 
 
 
@@ -32,33 +33,6 @@ module BoxInsert(length, width, height, cornerRadius, thickness) {
             InsideCutout(length, width, height, cornerRadius, thickness);
             cube([length, width, height]);
         }
-
-        for ( x = [2*cornerRadius, length - 2*cornerRadius - 16], y = [2*cornerRadius, width - 2*cornerRadius - 5] )
-            translate([x, y])
-            InsertBridge(thickness);
-        
-        translate([length/2 - 8, width/2 - 2.5])
-        InsertBridge(thickness);
-        
-        translate([(length - 117)/2, width - 10 - 59, height - 24])
-        cube([117, 59, 24 + 10]);
-        
-        translate([(length - 117)/2, 10, height - 31]) 
-        cube([80, 52, 31 + 10]);
-
-        translate([(length - 117)/2, 10, height - 31]) 
-        cube([33, 56, 31 + 10]);
-
-        translate([(length - 117)/2 + 19, 10 + 34, height - 31 - 8]) 
-        cylinder(20, r = 19);
-
-        translate([ length - (length - 117)/2 - 30, 10, height - 31]) 
-        cube([30, 52, 31 + 10]);
-        
-        
-        translate([length / 2.7, -10, height])
-        rotate([-90, 0, 0])
-        cylinder(2*width, r = 10);
 
         for ( x = [2*cornerRadius, length - 2*cornerRadius - 16], y = [2*cornerRadius, width - 2*cornerRadius - 5] )
         translate([x, y])
