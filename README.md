@@ -30,7 +30,7 @@ In Layers and perimeters:
 In Multiple extruders:
 - Set the wipe tower extruder to 1 (it is important that this is the same as is used for the case body)
 - Enable Interface shells
-As I am writing this, I just saw Jo Prusa's video on using segmented regions for interlocking heterogeneous materials. I might make an update if I can make it work locally
+As I am writing this, I just saw [Jo Prusa's video](https://twitter.com/josefprusa/status/1753516002799698426?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet) on using segmented regions for interlocking heterogeneous materials. I might make an update if I can make it work locally
 
 ### Importing objects
 
