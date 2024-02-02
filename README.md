@@ -30,6 +30,7 @@ In Layers and perimeters:
 In Multiple extruders:
 - Set the wipe tower extruder to 1 (it is important that this is the same as is used for the case body)
 - Enable Interface shells
+
 As I am writing this, I just saw [Jo Prusa's video](https://twitter.com/josefprusa/status/1753516002799698426?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet) on using segmented regions for interlocking heterogeneous materials. I might make an update if I can make it work locally
 
 ### Importing objects
@@ -54,12 +55,14 @@ For box-inset.stl and lid-inset.stl, add special infill and Layers and Perimeter
 - Bottom solid layers: 0
 - Perimeters: 0
 - Top solid layers: 0
+
 This makes the inset print as a sponge. The inset patches are meant to be solid, do not change print settings for these
 
 For box-supports.stl, add special Layers and Perimeters settings:
 - Bottom solid layers: 2
 - Perimeters: 1
 - Top solid layers: 4
+
 This avoids spending too much filament on the supports.
 
 
