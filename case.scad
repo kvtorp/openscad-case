@@ -1,23 +1,19 @@
-$fn = 256;
 
-length = 140;
-width = 140;
-height = 45;
-thickness = 2;
+include <dimensions.scad>
 
-Box(length, width, height, 10, thickness);
-AnslagSupport(length, height, 10);
+Box(length, width, height, 10, thickness, withInset);
+%AnslagSupport(length, height, 10);
 
-BoxInsert(length, width, height, 10, thickness);
+#BoxInsert(length, width, height, 10, thickness);
 InsertPatches(length, width, 10, thickness);
 
 translate([0, width + 45, 0])
-Lid(length, width, 10, thickness, "CAMERA", 20);
+Lid(length, width, 10, thickness, textOnLid, 20, withInset);
 translate([0, width + 45, 0])
 color("blue")
-LidText(length, width, "CAMERA", 20);
+LidText(length, width, textOnLid, 20);
 
-translate([0, width + 45, 0])
+#translate([0, width + 45, 0])
 LidInsert(length, width, 10, thickness);
 
 translate([0, width + 45, 0])
@@ -27,9 +23,6 @@ InsertPatches(length, width, 10, thickness);
 translate([0, width + 45, 0])
 Buckles(length, 10);
 
-*translate([200, 0, 10 + 70.1])
-rotate([0, 180, 0])
-Lid(200, 100, 10, 2, "CAMERA", 10);
 
 
 module BoxInsert(length, width, height, cornerRadius, thickness) {
@@ -313,7 +306,7 @@ module BuckleAttachmentProfile() {
     square([30, 10]);
 }
 
-module Lid(length, width, cornerRadius, thickness, text, textSize) {
+module Lid(length, width, cornerRadius, thickness, text, textSize, withInsetLice) {
     height = 10; 
     difference() {
         union() {
@@ -336,12 +329,10 @@ module Lid(length, width, cornerRadius, thickness, text, textSize) {
         translate([0, 0, -0.2])
         LidText(length, width, text, textSize);
     }
-    
-    for ( x = [2*cornerRadius, length - 2*cornerRadius - 16], y = [2*cornerRadius, width - 2*cornerRadius - 5] )
-        translate([x, y])
-        InsertBridge(thickness);
-    translate([length/2 - 8, width/2 - 2.5])
-    InsertBridge(thickness);
+
+    if (withInsetLice) {
+        InsetLice(length, width, height, cornerRadius, thickness);
+    }
 }
 
 module InsertBridge(thickness) {
@@ -412,7 +403,7 @@ module BoxHinge(length, width, height, cornerRadius) {
     }
 }
 
-module Box(length, width, height, cornerRadius, thickness) {
+module Box(length, width, height, cornerRadius, thickness, withInsetLice) {
     difference() {
         union() {
             Shell(length, width, height, cornerRadius, thickness);
@@ -431,13 +422,18 @@ module Box(length, width, height, cornerRadius, thickness) {
         InsideCutout(length, width, height, cornerRadius, thickness);
     }
 
+    if (withInsetLice) {
+        InsetLice(length, width, height, cornerRadius, thickness);
+    }
+
+}
+
+module InsetLice(ength, width, height, cornerRadius, thickness) {
     for ( x = [2*cornerRadius, length - 2*cornerRadius - 16], y = [2*cornerRadius, width - 2*cornerRadius - 5] )
-    translate([x, y])
-    InsertBridge(thickness);
-        
+        translate([x, y])
+        InsertBridge(thickness);
     translate([length/2 - 8, width/2 - 2.5])
     InsertBridge(thickness);
-
 }
 
 
