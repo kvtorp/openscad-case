@@ -1,6 +1,6 @@
-include <dimensions.scad>
+include <../dimensions.scad>
 
-use <case.scad>
+use <../Case/case.scad>
 
 color("blue")
 LidText(length, width, textOnLid, textSize);

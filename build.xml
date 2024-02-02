@@ -1,0 +1,41 @@
+<project name="Case" default="case" basedir=".">
+	<description>
+		Case generator
+	</description>
+
+	<property name="parts" location="Parts"/>
+	<property name="stl" location="STLs"/>
+	<property name="openscad" value="C:/Program Files/OpenSCAD/openscad.exe"/>
+
+	<target name="init">
+		<delete dir="${stl}"/>
+		<mkdir dir="${stl}"/>
+	</target>
+
+	<macrodef name="render">
+		<attribute name="part"/>
+		<sequential>
+			<echo message="@{part}"/>
+			<exec executable="${openscad}">
+				<arg value="${parts}\@{part}.scad"/>
+				<arg line="-o ${stl}\@{part}.stl"/>
+			</exec>
+		</sequential>
+	</macrodef>
+
+	<target name="case" depends="init">
+		<parallel>
+			<render part="box"/>
+			<render part="box-inset"/>
+			<render part="box-inset-patches"/>
+			<render part="box-supports"/>
+			<render part="lid"/>
+			<render part="lid-buckles"/>
+			<render part="lid-inset"/>
+			<render part="lid-inset-patches"/>
+			<render part="lid-text"/>
+		</parallel>
+	</target>
+	
+
+</project>

@@ -1,5 +1,5 @@
-include <dimensions.scad>
+include <../dimensions.scad>
 
-use <case.scad>
+use <../Case/case.scad>
 
 Lid(length, width, cornerRadius, thickness, textOnLid, textSize, withInset);

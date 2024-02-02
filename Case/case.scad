@@ -1,5 +1,5 @@
 
-include <dimensions.scad>
+include <../dimensions.scad>
 
 Box(length, width, height, 10, thickness, withInset);
 %AnslagSupport(length, height, 10);
@@ -428,7 +428,7 @@ module Box(length, width, height, cornerRadius, thickness, withInsetLice) {
 
 }
 
-module InsetLice(ength, width, height, cornerRadius, thickness) {
+module InsetLice(length, width, height, cornerRadius, thickness) {
     for ( x = [2*cornerRadius, length - 2*cornerRadius - 16], y = [2*cornerRadius, width - 2*cornerRadius - 5] )
         translate([x, y])
         InsertBridge(thickness);
